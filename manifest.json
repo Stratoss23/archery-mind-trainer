@@ -10,7 +10,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://www.lukostrelbatopolcany.sk/wp-content/uploads/2025/11/logo_love_transparent.png",
+      "src": "src": "img/logo_love_transparent.png",
       "sizes": "192x192",
       "type": "image/png"
     },
