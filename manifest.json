@@ -1,0 +1,23 @@
+{
+  "name": "Archery Mind Trainer",
+  "short_name": "ArcheryMind",
+  "description": "Random drill trainer for archers. Helps cure target panic and improve shot process control.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://www.lukostrelbatopolcany.sk/wp-content/uploads/2025/11/logo_love_transparent.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.lukostrelbatopolcany.sk/wp-content/uploads/2025/11/logo_love_transparent.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
