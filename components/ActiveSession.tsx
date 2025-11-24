@@ -26,6 +26,43 @@ export const ActiveSession: React.FC<Props> = ({ settings, onComplete, onAbort }
   // Refs for timeouts to clear them on unmount
   const commandTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // --- WAKE LOCK IMPLEMENTATION (Keep Screen On) ---
+  useEffect(() => {
+    let wakeLock: any = null;
+
+    const requestWakeLock = async () => {
+      try {
+        // @ts-ignore - Navigator types check
+        if (navigator.wakeLock) {
+           // @ts-ignore
+          wakeLock = await navigator.wakeLock.request('screen');
+          console.log('Screen Wake Lock active');
+        }
+      } catch (err) {
+        console.warn('Wake Lock failed:', err);
+      }
+    };
+
+    requestWakeLock();
+
+    // Re-acquire lock if app comes back to foreground (e.g. after minimizing)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        requestWakeLock();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (wakeLock) {
+        wakeLock.release().catch((e: any) => console.log(e));
+      }
+    };
+  }, []);
+  // --------------------------------------------------
+
   // Reset the execution flag when entering a new phase
   useEffect(() => {
     if (phase !== DrillPhase.COMMAND) {
